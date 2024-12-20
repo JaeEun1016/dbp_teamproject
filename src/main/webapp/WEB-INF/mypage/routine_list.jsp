@@ -10,7 +10,7 @@
 <body>
     <div class="list-container">
     <h1>${sessionScope.username}님의 할 일 목록</h1>
-    <%-- <p>현재 사용자 ID: ${userId}</p> --%>
+    <p>현재 사용자 ID: ${userId}</p>
     <table>
      <thead>
        <tr>

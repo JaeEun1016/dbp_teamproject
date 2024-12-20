@@ -125,6 +125,7 @@ public class TaskController implements Controller {
     private String createTask(HttpServletRequest request) throws Exception {
         try {
             int userId = Integer.parseInt(request.getParameter("userId"));
+            
             Task task = new Task();
             task.setUserId(userId);
             task.setDescription(request.getParameter("description"));
@@ -132,17 +133,17 @@ public class TaskController implements Controller {
             task.setCompleted(Boolean.parseBoolean(request.getParameter("isCompleted")));
 
             taskManager.addTask(task);
-            return "redirect:/mypage/create?userId=" + userId;
+            return "redirect:/mypage/view";
         } catch (Exception e) {
             log.error("Task 생성 실패", e);
             request.setAttribute("task", new Task());
             return "/mypage/routine_createForm.jsp";
         }
     }
-
+    
     private String updateTask(HttpServletRequest request) throws Exception {
         try {
-            int userId = Integer.parseInt(request.getParameter("userId"));
+            //int userId = Integer.parseInt(request.getParameter("userId"));
             Task task = new Task();
             task.setTaskId(Integer.parseInt(request.getParameter("taskId")));
             task.setDescription(request.getParameter("description"));
@@ -150,7 +151,7 @@ public class TaskController implements Controller {
             task.setCompleted(Boolean.parseBoolean(request.getParameter("isCompleted")));
 
             taskManager.updateTask(task);
-            return "redirect:/mypage/update?userId=" + userId;
+            return "redirect:/mypage/view";
         } catch (Exception e) {
             log.error("Task 업데이트 실패", e);
             request.setAttribute("task", new Task());
@@ -160,10 +161,10 @@ public class TaskController implements Controller {
 
     private String deleteTask(HttpServletRequest request) throws Exception {
         try {
-            int userId = Integer.parseInt(request.getParameter("userId"));
+            //int userId = Integer.parseInt(request.getParameter("userId"));
             int taskId = Integer.parseInt(request.getParameter("taskId"));
             taskManager.removeTask(taskId);
-            return "redirect:/mypage/delete?userId=" + userId;
+            return "redirect:/mypage/view";
         } catch (Exception e) {
             log.error("Task 삭제 실패", e);
             return "redirect:/error";
