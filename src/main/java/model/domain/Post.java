@@ -1,74 +1,90 @@
 package model.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Post {
-    private int postId;
-    private String postTitle;
-    private Date postDate;
-    private String postAuthor;
-    private List<Task> tasks;
-    private User user;///양방향 관계
+public class Post implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private int userId;  
+	private int postId;
+	private String postTitle;
+	private Date postDate;
+	private String userName; //여기선 author역할
+	private List<PostTask> tasks;//내용 부분에 들어갈 task목록
+	private User user;
 
-    public Post() {
+	public Post() {}
+
+	// 모든 필드를 포함하는 생성자
+	public Post(int postId, String postTitle, Date postDate, String userName, List<PostTask> tasks) {
+		this.postId = postId;
+		this.postTitle = postTitle;
+		this.postDate = postDate;
+		this.userName = userName;
+		this.tasks = tasks;
+	}
+
+	// Getter & Setter
+	public int getPostId() {
+		return postId;
+	}
+
+	public void setPostId(int postId) {
+		this.postId = postId;
+	}
+
+	public String getPostTitle() {
+		return postTitle;
+	}
+
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
+	}
+
+	public Date getPostDate() {
+		return postDate;
+	}
+
+	public void setPostDate(Date postDate) {
+		this.postDate = postDate;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public List<PostTask> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<PostTask> tasks) {
+		this.tasks = tasks;
+	}
+	
+    public int getUserId() {
+        return userId;
     }
 
-    // 모든 필드를 포함하는 생성자
-    public Post(int postId, String postTitle, Date postDate, String postAuthor, List<Task> tasks) {
-        this.postId = postId;
-        this.postTitle = postTitle;
-        this.postDate = postDate;
-        this.postAuthor = postAuthor;
-        this.tasks = tasks;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    // Getter & Setter
-    public int getPostId() {
-        return postId;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public String getPostTitle() {
-        return postTitle;
-    }
-
-    public void setPostTitle(String postTitle) {
-        this.postTitle = postTitle;
-    }
-
-    public Date getPostDate() {
-        return postDate;
-    }
-
-    public void setPostDate(Date postDate) {
-        this.postDate = postDate;
-    }
-
-    public String getPostAuthor() {
-        return postAuthor;
-    }
-
-    public void setPostAuthor(String postAuthor) {
-        this.postAuthor = postAuthor;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-    
-    public User getUser() {
-            return user;
-      }
-      
-   public void setUser(User user){
-              this.user = user;
-    }
+	@Override
+	public String toString() {
+		return "Post [userId=" + userId + ", postId=" + postId + ", postTitle=" + postTitle + ", postDate=" + postDate
+				+ ", userName=" + userName + ", tasks=" + tasks + "]";
+	}	
 }

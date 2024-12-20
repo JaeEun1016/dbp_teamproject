@@ -88,7 +88,22 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>dbp</groupId>
+			<artifactId>StudentServices</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>dbp</groupId>
+			<artifactId>mybatis-examples</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>dbp</groupId>
+			<artifactId>TransactionDBCPExamples</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+  </dependencies>
 
   <build>
 		<sourceDirectory>src/main/java</sourceDirectory>

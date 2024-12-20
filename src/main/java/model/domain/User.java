@@ -1,52 +1,51 @@
 package model.domain;
 
-/**
- * 사용자 관리를 위해 필요한 도메인 클래스. USERINFO 테이블과 대응됨
- */
-public class User {
-    private String userId;
-    private String password;
-    private String name;
-    private String email;
-    private String phone;
-    private int commId;
-    private String commName;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
-    public User() { }       // 기본 생성자
+public class User implements Serializable{    
+    private static final long serialVersionUID = 1L;
     
-    public User(String userId, String password, String name, String email, String phone, int commId) {
+    private int userId;
+    private String password;
+    private String username;
+    private String email;
+    private Date birthDate;
+    private boolean chronoType; // true: 아침형, false: 저녁형
+    private String isMorningPerson; // true: 아침형, false: 저녁형
+
+    // 생성자
+    public User(int userId, String password, String username, String email, Date birthDate, boolean chronoType, String isMorningPerson) {
         this.userId = userId;
         this.password = password;
-        this.name = name;
+        this.username = username;
         this.email = email;
-        this.phone = phone;
-        this.commId = commId;
+        this.birthDate = birthDate;
+        this.chronoType = chronoType;
+        this.isMorningPerson = isMorningPerson;
     }
     
-    public User(String userId, String password, String name, String email, String phone, int commId, String commName) {
-        this(userId, password, name, email, phone, commId);
-        this.commName = commName;
-    }
-
-    public User(String userId, String name, String email, String phone) {
+    // birthDate를 Date 타입 말고 String으로도 받을 수 있게 함
+    public User(int userId, String password, String username, String email, String birthDateString, boolean chronoType, String isMorningPerson) {
         this.userId = userId;
-        this.name = name;
+        this.password = password;
+        this.username = username;
         this.email = email;
-        this.phone = phone;     
+        this.birthDate = java.sql.Date.valueOf(birthDateString); // yyyy-MM-dd 형식의 String --> java.sql.Date로 변환 
+        this.chronoType = chronoType;
+        this.isMorningPerson = isMorningPerson;
     }
     
-    /*public void update(User updateUser) {
-        this.password = updateUser.password;
-        this.name = updateUser.name;
-        this.email = updateUser.email;
-        this.phone = updateUser.phone;
-    }*/
-    
-    public String getUserId() {
+    // 기본 생성자 필요함
+    public User() { };
+
+    // Getters and Setters
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -58,12 +57,12 @@ public class User {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -74,46 +73,39 @@ public class User {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public int getCommId() {
-        return commId;
-    }
-
-    public void setCommId(int commId) {
-        this.commId = commId;
-    }
-
-    public String getCommName() {
-        return commName;
-    }
-
-    public void setCommName(String commName) {
-        this.commName = commName;
-    }
-
-    
-    /* 비밀번호 검사 */
-    public boolean matchPassword(String password) {
-        if (password == null) {
-            return false;
-        }
-        return this.password.equals(password);
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
     
-    public boolean isSameUser(String userid) {
-        return this.userId.equals(userid);
+    public boolean getChronoType() {
+        return chronoType;
     }
 
-    @Override
-    public String toString() {
-        return "User [userId=" + userId + ", password=" + password + ", name=" + name + ", email=" + email + ", phone="
-                + phone + ", commId=" + commId + "]";
-    }   
+    public void setChronoType(boolean chronoType) {
+        this.chronoType = chronoType;
+    }
+    
+    public String getIsMorningPerson() {
+        return isMorningPerson;
+    }
+
+    public void setMorningPerson(String isMorningPerson) {//true면 MORNING값 false면 EVENING값 저장
+    	/*if(this.chronoType) {
+    		isMorningPerson = "MORNING";
+    	}else {
+    		isMorningPerson = "EVENING";
+    	}*/
+        this.isMorningPerson = isMorningPerson;
+    }       
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", password=" + password + ", username=" + username + ", email=" + email
+				+ ", birthDate=" + birthDate + ", isMorningPerson=" + isMorningPerson + "]";
+	}
+        
 }
